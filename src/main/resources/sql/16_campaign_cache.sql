@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS campaign_cache (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    campaign_id INT NOT NULL,
+    total_donations DECIMAL(12,2) DEFAULT 0.00,
+    donor_count INT DEFAULT 0,
+    last_donation_at TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
