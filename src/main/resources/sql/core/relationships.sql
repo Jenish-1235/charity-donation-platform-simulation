@@ -43,6 +43,12 @@ ALTER TABLE donor_donation_summary
 ALTER TABLE donor_donation_summary
     ADD CONSTRAINT fk_dds_donor FOREIGN KEY (donor_id) REFERENCES donor(id);
 
+ALTER TABLE direct_donations
+    ADD CONSTRAINT fk_dd_donor FOREIGN KEY (donor_id) REFERENCES donor(id);
+
+ALTER TABLE direct_donations
+    ADD CONSTRAINT fk_dd_charity FOREIGN KEY (charity_id) REFERENCES charity(charity_id);
+
 
 -- Indexes for performance
 CREATE INDEX idx_donor_income_range ON donor (income_range);
@@ -65,6 +71,18 @@ CREATE INDEX idx_fundraiser_category ON fundraiser (category_id);
 
 CREATE INDEX idx_donor_created_at ON donor (created_at);
 CREATE INDEX idx_donor_last_donated_at ON donor (last_donated_at);
+
+-- Index for filtering/grouping by donor
+CREATE INDEX idx_dd_donor_id ON direct_donations (donor_id);
+
+-- Index for filtering/grouping by charity
+CREATE INDEX idx_dd_charity_id ON direct_donations (charity_id);
+
+-- Index for querying by receipt status
+CREATE INDEX idx_dd_receipt_status ON direct_donations (receipt_status);
+
+-- Index for time-based analytics (trends, recent donations)
+CREATE INDEX idx_dd_timestamp ON direct_donations (timestamp);
 
 
 
