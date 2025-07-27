@@ -25,7 +25,8 @@ public class SchemaCreatorUtil {
                 "sql/core/13_fundraiser_cache.sql",
                 "sql/core/14_category.sql",
                 "sql/core/15_charity_category.sql",
-                "sql/core/16_campaign_cache.sql"
+                "sql/core/16_campaign_cache.sql",
+                "sql/core/17_donor_donation_summary.sql.sql",
         };
 
         for (String file : files) {

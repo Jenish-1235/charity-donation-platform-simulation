@@ -35,6 +35,15 @@ ALTER TABLE recurring_donation ADD CONSTRAINT fk_rd_payment_method FOREIGN KEY (
 ALTER TABLE user_contact_preference ADD CONSTRAINT fk_ucp_method FOREIGN KEY (method_id) REFERENCES contact_method_type(id);
 ALTER TABLE user_payment_preference ADD CONSTRAINT fk_upp_method FOREIGN KEY (payment_method_id) REFERENCES payment_method_type(id);
 
+-- Composite Primary Key
+ALTER TABLE donor_donation_summary
+    ADD CONSTRAINT pk_donor_donation_summary PRIMARY KEY (donor_id, donation_type);
+
+-- Foreign Key to donor table
+ALTER TABLE donor_donation_summary
+    ADD CONSTRAINT fk_dds_donor FOREIGN KEY (donor_id) REFERENCES donor(id);
+
+
 -- Indexes for performance
 CREATE INDEX idx_donor_income_range ON donor (income_range);
 CREATE INDEX idx_donor_age ON donor (age);
@@ -56,5 +65,6 @@ CREATE INDEX idx_fundraiser_category ON fundraiser (category_id);
 
 CREATE INDEX idx_donor_created_at ON donor (created_at);
 CREATE INDEX idx_donor_last_donated_at ON donor (last_donated_at);
+
 
 
