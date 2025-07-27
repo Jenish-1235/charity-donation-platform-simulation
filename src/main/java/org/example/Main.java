@@ -1,9 +1,11 @@
 package org.example;
 
 import org.example.utils.ConnectionUtil;
+import org.example.utils.DummyDataInserterUtil;
+import org.example.utils.RelationshipEnforcerUtil;
+import org.example.utils.SchemaCreatorUtil;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -34,6 +36,9 @@ public class Main {
                     String password = sc.next();
 
                     conn = ConnectionUtil.getLocalDbConnection(url, username, password);
+                    SchemaCreatorUtil.execute(conn);
+                    RelationshipEnforcerUtil.execute(conn);
+                    DummyDataInserterUtil.execute(conn);
                     break;
                 case 2:
                     System.out.println("Connecting to existing database... \n" +
@@ -45,6 +50,7 @@ public class Main {
                     return;
 
             }
+            simulateSystem(sc, conn);
         }
         catch (SQLException e){
             System.out.println("Database connection error. Please try again.");

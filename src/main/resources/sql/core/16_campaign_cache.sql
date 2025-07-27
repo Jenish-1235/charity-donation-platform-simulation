@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS campaign_cache (
     donor_count INT DEFAULT 0,
     last_donation_at TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)
+);

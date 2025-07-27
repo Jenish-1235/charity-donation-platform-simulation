@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS fundraiser_cache (
     total_amount DECIMAL(12,2),
     donor_count INT,
     last_updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);

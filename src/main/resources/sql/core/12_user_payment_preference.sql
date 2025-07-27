@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS user_payment_preference (
     provider_token TEXT,
     is_primary BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);

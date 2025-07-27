@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS campaign (
     ack_url TEXT,
     is_active BOOLEAN DEFAULT TRUE,
     start_date DATE,
-    end_date DATE,
+    end_date DATE
 );

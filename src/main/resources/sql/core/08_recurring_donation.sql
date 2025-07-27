@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS recurring_donation (
     end_date DATE,
     is_active BOOLEAN,
     primary_payment_method_id INT
-)
+);

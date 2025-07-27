@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS campaign_transactions (
     receipt_url TEXT,
     ack_url TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
