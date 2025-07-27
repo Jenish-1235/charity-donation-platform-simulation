@@ -50,15 +50,11 @@ public class Main {
                     return;
 
             }
-            simulateSystem(sc, conn);
+            Simulator.execute(sc, conn);
         }
         catch (SQLException e){
             System.out.println("Database connection error. Please try again.");
         }
 
-    }
-
-    private static void simulateSystem(Scanner sc, Connection conn) {
-        System.out.println("CLI Implementation will go here.");
     }
 }
