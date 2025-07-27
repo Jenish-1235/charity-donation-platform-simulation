@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.service.TestQueryService;
+import org.example.service.UserFlowService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class Simulator {
                     runTestQueries(sc, conn);
                     break;
                 case "2":
-                    runUserFlow(sc, conn);
+                    UserFlowService.runUserFlow(sc, conn);
                     break;
                 case "3":
                     runCharityFlow(sc, conn);
@@ -129,11 +130,6 @@ public class Simulator {
     }
 
 
-
-    private static void runUserFlow(Scanner sc, Connection conn) {
-        System.out.println("This service will be pushed in further releases." +
-                "You can collect most recent release from github repo");
-    }
 
     private static void runCharityFlow(Scanner sc, Connection conn) {
         System.out.println("This service will be pushed in further releases." +

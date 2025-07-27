@@ -27,6 +27,15 @@ public class DirectDonation {
         this.timestamp = timestamp;
     }
 
+    public DirectDonation(int donorId, int charityId, BigDecimal amount, String receiptStatus, String receiptUrl, String ackUrl) {
+        this.donorId = donorId;
+        this.charityId = charityId;
+        this.amount = amount;
+        this.receiptStatus = receiptStatus;
+        this.receiptUrl = receiptUrl;
+        this.ackUrl = ackUrl;
+    }
+
     public DirectDonation() {
 
     }

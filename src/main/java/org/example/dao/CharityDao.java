@@ -4,6 +4,8 @@ import org.example.model.Charity;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharityDao {
     private final Connection conn;
@@ -59,6 +61,20 @@ public class CharityDao {
             System.err.println("⚠️ Error in getCharityById: " + e.getMessage());
         }
         return null;
+    }
+
+    public List<Charity> getAllCharities() {
+        List<Charity> list = new ArrayList<>();
+        String sql = "SELECT * FROM charity";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToCharity(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error fetching all charities: " + e.getMessage());
+        }
+        return list;
     }
 
     private Charity mapRowToCharity(ResultSet rs) throws SQLException {

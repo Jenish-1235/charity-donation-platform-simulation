@@ -29,8 +29,26 @@ public class DirectDonationDao {
     }
 
     public List<DirectDonation> findByDonorId(int donorId) throws SQLException {
-        // Similar logic — SELECT * WHERE donor_id = ?
-        return null;
+        List<DirectDonation> list = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM direct_donations WHERE donor_id = ? ORDER BY timestamp DESC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, donorId);
+            java.sql.ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                DirectDonation d = new DirectDonation(
+                    rs.getInt("transaction_id"),
+                    rs.getInt("donor_id"),
+                    rs.getInt("charity_id"),
+                    rs.getBigDecimal("amount"),
+                    rs.getString("receipt_status"),
+                    rs.getString("receipt_url"),
+                    rs.getString("ack_url"),
+                    rs.getTimestamp("timestamp")
+                );
+                list.add(d);
+            }
+        }
+        return list;
     }
 
     public List<DirectDonation> findByCharityId(int charityId) throws SQLException {

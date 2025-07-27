@@ -1,7 +1,8 @@
 plugins {
-    id("java")
+    kotlin("jvm") version "1.9.0"  // or your version
+    application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
-
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -17,4 +18,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("org.example.Main")
+}
+
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "org.example.Main"
+    }
 }

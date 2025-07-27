@@ -30,4 +30,22 @@ public class CategoryDao {
         }
         return list;
     }
+
+    public java.util.List<org.example.model.Category> getAllCategories() {
+        java.util.List<org.example.model.Category> list = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM category";
+        try (java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+            java.sql.ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new org.example.model.Category(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("description")
+                ));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.println("⚠️ Error fetching all categories: " + e.getMessage());
+        }
+        return list;
+    }
 }

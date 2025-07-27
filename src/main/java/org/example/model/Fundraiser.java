@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Fundraiser {
-    private int id;
+    private int fundraiser_id;
     private int charityId;
     private int categoryId;
     private String title;
@@ -21,7 +21,7 @@ public class Fundraiser {
     public Fundraiser(int id, int charityId, int categoryId, String title, String description,
                       double goalAmount, double currentAmount, String recUrl, String ackUrl,
                       boolean isActive, LocalDate startDate, LocalDate endDate, LocalDateTime createdAt) {
-        this.id = id;
+        this.fundraiser_id = id;
         this.charityId = charityId;
         this.categoryId = categoryId;
         this.title = title;
@@ -37,11 +37,11 @@ public class Fundraiser {
     }
 
     public int getId() {
-        return id;
+        return fundraiser_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.fundraiser_id = id;
     }
 
     public int getCharityId() {
