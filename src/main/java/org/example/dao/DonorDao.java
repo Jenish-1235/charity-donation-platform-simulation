@@ -66,6 +66,17 @@ public class DonorDao {
         return null;
     }
 
+    public boolean updateLastDonatedAt(int donorId) {
+        String sql = "UPDATE donor SET last_donated_at = CURRENT_TIMESTAMP WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, donorId);
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error updating last donated timestamp: " + e.getMessage());
+            return false;
+        }
+    }
+
     private Donor mapRowToDonor(ResultSet rs) throws SQLException {
         return new Donor(
                 rs.getInt("id"),

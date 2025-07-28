@@ -32,6 +32,11 @@ public class UserPaymentPreferenceDao {
         }
     }
 
+    public boolean createPaymentPreference(int donorId, int methodId, String accountLast4,
+                                          String providerToken, boolean isPrimary) {
+        return addPaymentMethod(donorId, methodId, accountLast4, providerToken, isPrimary);
+    }
+
     public List<UserPaymentPreference> getMethodsByDonor(int donorId) {
         List<UserPaymentPreference> list = new ArrayList<>();
         String sql = "SELECT * FROM user_payment_preference WHERE donor_id = ?";
@@ -55,6 +60,10 @@ public class UserPaymentPreferenceDao {
         return list;
     }
 
+    public List<UserPaymentPreference> getPaymentMethodsByDonor(int donorId) {
+        return getMethodsByDonor(donorId);
+    }
+
     public UserPaymentPreference getPrimaryMethod(int donorId) {
         String sql = "SELECT * FROM user_payment_preference WHERE donor_id = ? AND is_primary = TRUE LIMIT 1";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -75,5 +84,9 @@ public class UserPaymentPreferenceDao {
             System.err.println("⚠️ Error fetching primary method: " + e.getMessage());
         }
         return null;
+    }
+
+    public UserPaymentPreference getPrimaryPaymentMethod(int donorId) {
+        return getPrimaryMethod(donorId);
     }
 }

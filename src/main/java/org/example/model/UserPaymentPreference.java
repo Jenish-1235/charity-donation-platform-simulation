@@ -23,6 +23,7 @@ public class UserPaymentPreference {
     }
 
     public int getId() { return id; }
+    public int getPaymentMethodId() { return methodId; }
     public boolean isPrimary() { return isPrimary; }
     public String getAccountLast4() { return accountLast4; }
 }

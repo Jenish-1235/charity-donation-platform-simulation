@@ -15,12 +15,7 @@ public class DirectDonationService {
     }
 
     public void donate(int donorId, int charityId, BigDecimal amount) throws SQLException {
-        DirectDonation d = new DirectDonation();
-        d.setDonorId(donorId);
-        d.setCharityId(charityId);
-        d.setAmount(amount);
-        d.setReceiptStatus("PENDING");
-        dao.create(d);
+        dao.insertDonation(donorId, charityId, amount.doubleValue(), "PENDING", "", "");
 
         // TODO: Push to donor_donation_summary for type = "DIRECT"
     }

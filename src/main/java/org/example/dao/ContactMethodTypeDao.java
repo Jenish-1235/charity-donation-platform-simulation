@@ -30,4 +30,26 @@ public class ContactMethodTypeDao {
         }
         return methods;
     }
+
+    public List<ContactMethodType> getAllContactMethods() {
+        return getAllMethods();
+    }
+
+    public ContactMethodType getContactMethodById(int id) {
+        String sql = "SELECT * FROM contact_method_type WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new ContactMethodType(
+                        rs.getInt("id"),
+                        rs.getString("method"),
+                        rs.getString("description")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error fetching contact method by ID: " + e.getMessage());
+        }
+        return null;
+    }
 }

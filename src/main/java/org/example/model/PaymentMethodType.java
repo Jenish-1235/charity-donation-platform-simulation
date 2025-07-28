@@ -17,5 +17,6 @@ public class PaymentMethodType {
 
     public int getId() { return id; }
     public String getMethod() { return method; }
+    public String getProvider() { return provider; }
     public boolean isRequiresToken() { return requiresToken; }
 }

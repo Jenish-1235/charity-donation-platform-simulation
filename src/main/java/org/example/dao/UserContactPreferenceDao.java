@@ -29,6 +29,10 @@ public class UserContactPreferenceDao {
         }
     }
 
+    public boolean createContactPreference(int donorId, int methodId, boolean isEnabled, String language) {
+        return setPreference(donorId, methodId, isEnabled, language);
+    }
+
     public List<UserContactPreference> getPreferencesByDonor(int donorId) {
         List<UserContactPreference> list = new ArrayList<>();
         String sql = "SELECT * FROM user_contact_preference WHERE donor_id = ?";
@@ -48,5 +52,29 @@ public class UserContactPreferenceDao {
             System.err.println("⚠️ Error fetching contact preferences: " + e.getMessage());
         }
         return list;
+    }
+
+    public List<UserContactPreference> getContactMethodsByDonor(int donorId) {
+        return getPreferencesByDonor(donorId);
+    }
+
+    public UserContactPreference getPrimaryContactMethod(int donorId) {
+        String sql = "SELECT * FROM user_contact_preference WHERE donor_id = ? ORDER BY preference_id ASC LIMIT 1";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, donorId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new UserContactPreference(
+                        rs.getInt("preference_id"),
+                        donorId,
+                        rs.getInt("method_id"),
+                        rs.getBoolean("is_enabled"),
+                        rs.getString("preferred_language")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error fetching primary contact method: " + e.getMessage());
+        }
+        return null;
     }
 }
