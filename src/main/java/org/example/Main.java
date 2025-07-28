@@ -25,7 +25,7 @@
                 try {
                     System.out.println("Choose : \n" +
                             "1. Use local Database. (Will create schema and add dummy data locally.) \n" +
-                            "2. Use hostede Database. (Schema and dummy data already setup in cloud.) \n");
+                            "2. Use hosted Database. (Schema and dummy data already setup in cloud.) \n");
                     System.out.println("Enter your choice (1 or 2) : ");
                     int choice = sc.nextInt();
 
