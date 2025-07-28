@@ -22,4 +22,8 @@ public class FundraiserCacheDao {
             System.err.println("⚠️ Error updating fundraiser cache: " + e.getMessage());
         }
     }
+
+    public void updateFundraiserCache(int fundraiserId, double amount) {
+        incrementStats(fundraiserId, amount);
+    }
 }

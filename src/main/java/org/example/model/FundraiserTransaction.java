@@ -31,5 +31,7 @@ public class FundraiserTransaction {
     public int getFundraiserId() { return fundraiserId; }
     public double getAmount() { return amount; }
     public String getReceiptStatus() { return receiptStatus; }
+    public String getReceiptUrl() { return receiptUrl; }
+    public String getAckUrl() { return ackUrl; }
     public LocalDateTime getTimestamp() { return timestamp; }
 }

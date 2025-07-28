@@ -14,25 +14,7 @@ public class CharityDao {
         this.conn = conn;
     }
 
-    public boolean registerCharity(String name, String email, String password, String description,
-                                   String websiteUrl, String ackUrl, String receiptUrl, int categoryId) {
-        String sql = "INSERT INTO charity (name, email, password, description, website_url, ack_url, receipt_url, category_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, password);
-            stmt.setString(4, description);
-            stmt.setString(5, websiteUrl);
-            stmt.setString(6, ackUrl);
-            stmt.setString(7, receiptUrl);
-            stmt.setInt(8, categoryId);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("⚠️ Charity registration failed: " + e.getMessage());
-            return false;
-        }
-    }
+
 
     public Charity getCharityByEmailAndPassword(String email, String password) {
         String sql = "SELECT * FROM charity WHERE email = ? AND password = ?";
@@ -75,6 +57,41 @@ public class CharityDao {
             System.err.println("⚠️ Error fetching all charities: " + e.getMessage());
         }
         return list;
+    }
+
+    public List<Charity> getCharitiesByCategory(int categoryId) {
+        List<Charity> list = new ArrayList<>();
+        String sql = "SELECT * FROM charity WHERE category_id = ? AND is_active = TRUE";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, categoryId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToCharity(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error fetching charities by category: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public boolean registerCharity(String name, String email, String password, String description,
+                                   String websiteUrl, String ackUrl, String receiptUrl, int categoryId) {
+        String sql = "INSERT INTO charity (name, email, password, description, website_url, ack_url, receipt_url, category_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setString(4, description);
+            stmt.setString(5, websiteUrl);
+            stmt.setString(6, ackUrl);
+            stmt.setString(7, receiptUrl);
+            stmt.setInt(8, categoryId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("⚠️ Charity registration failed: " + e.getMessage());
+            return false;
+        }
     }
 
     private Charity mapRowToCharity(ResultSet rs) throws SQLException {

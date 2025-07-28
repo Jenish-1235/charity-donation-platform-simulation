@@ -79,6 +79,47 @@ public class CampaignDao {
         return list;
     }
 
+    public Campaign getCampaignById(int id) {
+        String sql = "SELECT * FROM campaign WHERE campaign_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return mapRowToCampaign(rs);
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error fetching campaign by ID: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean updateCampaign(Campaign campaign) {
+        String sql = "UPDATE campaign SET title = ?, description = ?, rec_url = ?, ack_url = ? WHERE campaign_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, campaign.getTitle());
+            stmt.setString(2, campaign.getDescription());
+            stmt.setString(3, campaign.getRecUrl());
+            stmt.setString(4, campaign.getAckUrl());
+            stmt.setInt(5, campaign.getId());
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error updating campaign: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateCampaignStatus(int campaignId, boolean isActive) {
+        String sql = "UPDATE campaign SET is_active = ? WHERE campaign_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, isActive);
+            stmt.setInt(2, campaignId);
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error updating campaign status: " + e.getMessage());
+            return false;
+        }
+    }
+
     private Campaign mapRowToCampaign(ResultSet rs) throws SQLException {
         return new Campaign(
                 rs.getInt("campaign_id"),

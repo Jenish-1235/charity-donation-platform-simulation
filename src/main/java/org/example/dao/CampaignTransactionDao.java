@@ -48,6 +48,37 @@ public class CampaignTransactionDao {
         return list;
     }
 
+    public List<CampaignTransaction> getDonationsByCampaign(int campaignId) {
+        List<CampaignTransaction> list = new ArrayList<>();
+        String sql = "SELECT * FROM campaign_transactions WHERE campaign_id = ? ORDER BY timestamp DESC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, campaignId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToTransaction(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error retrieving donations by campaign: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public List<CampaignTransaction> getRecentDonationsByCampaign(int campaignId, int limit) {
+        List<CampaignTransaction> list = new ArrayList<>();
+        String sql = "SELECT * FROM campaign_transactions WHERE campaign_id = ? ORDER BY timestamp DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, campaignId);
+            stmt.setInt(2, limit);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToTransaction(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error retrieving recent donations by campaign: " + e.getMessage());
+        }
+        return list;
+    }
+
     private CampaignTransaction mapRowToTransaction(ResultSet rs) throws SQLException {
         return new CampaignTransaction(
                 rs.getInt("transaction_id"),

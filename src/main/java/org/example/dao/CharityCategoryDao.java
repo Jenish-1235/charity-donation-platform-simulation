@@ -30,4 +30,8 @@ public class CharityCategoryDao {
         }
         return list;
     }
+
+    public List<CharityCategory> getAllCharityCategories() {
+        return getAll();
+    }
 }

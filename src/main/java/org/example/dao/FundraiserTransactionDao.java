@@ -48,6 +48,21 @@ public class FundraiserTransactionDao {
         return list;
     }
 
+    public List<FundraiserTransaction> getDonationsByFundraiser(int fundraiserId) {
+        List<FundraiserTransaction> list = new ArrayList<>();
+        String sql = "SELECT * FROM fundraiser_transactions WHERE fundraiser_id = ? ORDER BY timestamp DESC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, fundraiserId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToTransaction(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠️ Error retrieving donations by fundraiser: " + e.getMessage());
+        }
+        return list;
+    }
+
     private FundraiserTransaction mapRowToTransaction(ResultSet rs) throws SQLException {
         return new FundraiserTransaction(
                 rs.getInt("transaction_id"),

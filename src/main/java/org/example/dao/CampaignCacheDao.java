@@ -22,4 +22,8 @@ public class CampaignCacheDao {
             System.err.println("⚠️ Error updating campaign cache: " + e.getMessage());
         }
     }
+
+    public void updateCampaignCache(int campaignId, double amount) {
+        incrementStats(campaignId, amount);
+    }
 }
