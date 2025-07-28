@@ -67,7 +67,7 @@ This is a modular, menu-driven Java application for simulating a charity donatio
 - `src/main/java/org/example/service/` - Business logic and flows
 - `src/main/java/org/example/utils/` - Utilities (DB connection, schema, dummy data)
 - `src/main/resources/sql/core/` - SQL schema scripts
-- `src/main/resources/sql/dummy_data/` - Dummy data scripts
+- `src/main/resources/sql/requirements/` - Contains queries as per requirement doc.
 
 ## Extending/Customizing
 - To add new flows (e.g., Charity Flow), implement in the service layer and update the simulator menu.
